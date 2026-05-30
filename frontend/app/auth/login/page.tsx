@@ -17,10 +17,10 @@ export default function LoginPage() {
 
   return (
     <div className='light bg-background min-h-screen flex items-center justify-center'>
-      <div className='w-full max-w-sm border border-border p-8'>
+      <div className='w-full max-w-sm border border-gray-300 p-8'>
         <div className='text-center mb-6'>
           <h1 className='text-2xl font-bold mb-1'>BENCHLINE</h1>
-          <p className='text-muted-foreground text-sm'>Sign in to your distribution OS</p>
+          <p className='text-gray-600 text-sm'>Sign in to your distribution OS</p>
         </div>
         <button
           onClick={login}
@@ -29,7 +29,7 @@ export default function LoginPage() {
           <Github size={18} />
           Sign in with GitHub
         </button>
-        <p className='text-xs text-muted-foreground text-center mt-4'>
+        <p className='text-xs text-gray-500 text-center mt-4'>
           Only your public GitHub profile is accessed.
         </p>
       </div>
