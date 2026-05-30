@@ -2,8 +2,9 @@
 
 import { useState } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Settings, Search, Bell } from "lucide-react"
+import { Settings, Search, Bell, LogOut } from "lucide-react"
 import { usePathname } from "next/navigation"
+import { useAuth } from '@/lib/auth-context'
 import NotificationDropdown from './NotificationDropdown'
 import SearchModal from './SearchModal'
 
@@ -18,6 +19,10 @@ const NavigationBar = () => {
   const pathname = usePathname()
   const [showNotifications, setShowNotifications] = useState(false)
   const [showSearch, setShowSearch] = useState(false)
+  const [showUserMenu, setShowUserMenu] = useState(false)
+  const { user, logout } = useAuth()
+
+  if (pathname === '/login') return null
 
   return (
     <div className='sticky top-0 z-50 bg-background flex items-center justify-between w-full py-6 px-8 border-b border-b-black box-border'>
@@ -50,11 +55,35 @@ const NavigationBar = () => {
                 </div>
             </div>
             <div className='h-6 w-px bg-gray-300 mr-4'></div>
-            <div className="cursor-pointer">
-                <Avatar>
-                    <AvatarImage src="https://github.com/shadcn.png" />
-                    <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
+            <div className='relative'>
+                <button className='cursor-pointer' onClick={() => setShowUserMenu(p => !p)}>
+                    <Avatar>
+                        <AvatarImage src={user?.avatar_url || 'https://github.com/shadcn.png'} />
+                        <AvatarFallback>{user?.login?.charAt(0).toUpperCase() || '?'}</AvatarFallback>
+                    </Avatar>
+                </button>
+                {showUserMenu && (
+                    <div className='absolute top-full right-0 mt-2 w-56 border border-black bg-white shadow-lg z-50'>
+                        <div className='px-4 py-3 border-b border-black'>
+                            <p className='text-sm font-medium'>{user?.name || user?.login}</p>
+                            <p className='text-xs text-gray-500'>@{user?.login}</p>
+                        </div>
+                        <button
+                            onClick={() => { setShowUserMenu(false); window.location.href = '/settings' }}
+                            className='w-full text-left px-4 py-2 text-sm hover:bg-gray-50 flex items-center gap-2'
+                        >
+                            <Settings size={14} />
+                            Settings
+                        </button>
+                        <button
+                            onClick={() => { setShowUserMenu(false); logout() }}
+                            className='w-full text-left px-4 py-2 text-sm hover:bg-gray-50 flex items-center gap-2 border-t border-gray-100 text-red-500'
+                        >
+                            <LogOut size={14} />
+                            Sign out
+                        </button>
+                    </div>
+                )}
             </div>
         </div>
         {showSearch && <SearchModal onClose={() => setShowSearch(false)} />}

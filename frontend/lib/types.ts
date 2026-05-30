@@ -34,6 +34,17 @@ export interface GitHubEvent {
   created_at: string
 }
 
+export interface GitHubUser {
+  id: number
+  login: string
+  name: string | null
+  avatar_url: string
+  bio: string | null
+  html_url: string
+  public_repos: number
+  followers: number
+}
+
 export interface Notification {
   id: string
   type: 'release' | 'published' | 'pr' | 'scheduled' | 'commit'

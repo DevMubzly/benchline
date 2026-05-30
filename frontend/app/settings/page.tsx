@@ -1,9 +1,12 @@
 'use client'
 
 import { useState } from 'react'
-import { Github, Key, ExternalLink } from 'lucide-react'
+import { Github, Key, ExternalLink, LogOut } from 'lucide-react'
+import { useAuth } from '@/lib/auth-context'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
 export default function SettingsPage() {
+  const { user, logout } = useAuth()
   const [githubToken, setGithubToken] = useState('')
   const [openaiKey, setOpenaiKey] = useState('')
   const [saved, setSaved] = useState(false)
@@ -24,13 +27,41 @@ export default function SettingsPage() {
       </div>
 
       <div className='space-y-8'>
+        {user && (
+          <div className='border border-black p-6'>
+            <h2 className='font-bold mb-4'>Account</h2>
+            <div className='flex items-center gap-4'>
+              <Avatar className='w-12 h-12'>
+                <AvatarImage src={user.avatar_url} />
+                <AvatarFallback>{user.login?.charAt(0).toUpperCase()}</AvatarFallback>
+              </Avatar>
+              <div>
+                <p className='font-medium'>{user.name || user.login}</p>
+                <p className='text-sm text-gray-500'>@{user.login}</p>
+                {user.bio && <p className='text-xs text-gray-400 mt-1'>{user.bio}</p>}
+                <div className='flex items-center gap-4 mt-1 text-xs text-gray-400'>
+                  <span>{user.public_repos} public repos</span>
+                  <span>{user.followers} followers</span>
+                </div>
+              </div>
+            </div>
+            <button
+              onClick={logout}
+              className='mt-4 flex items-center gap-2 text-sm text-red-500 hover:text-red-700 transition-colors'
+            >
+              <LogOut size={14} />
+              Sign out
+            </button>
+          </div>
+        )}
+
         <div className='border border-black p-6'>
           <h2 className='font-bold mb-4 flex items-center gap-2'>
             <Github size={16} />
             GitHub Integration
           </h2>
           <p className='text-sm text-gray-500 mb-4'>
-            Connect your GitHub to scan repos and monitor activity.
+            Personal Access Token for extended API access (repo scanning, activity monitoring).
           </p>
           <div className='space-y-3'>
             <div>
