@@ -1,0 +1,31 @@
+import { GeographyFeature, Customer } from './types';
+
+export const MAJOR_FEATURES: GeographyFeature[] = [
+  // Oceans
+  { name: 'PACIFIC OCEAN', type: 'ocean', lat: 0, lng: -160 },
+  { name: 'ATLANTIC OCEAN', type: 'ocean', lat: 0, lng: -30 },
+  { name: 'INDIAN OCEAN', type: 'ocean', lat: -20, lng: 80 },
+  { name: 'ARCTIC OCEAN', type: 'ocean', lat: 85, lng: 0 },
+  { name: 'SOUTHERN OCEAN', type: 'ocean', lat: -60, lng: 0 },
+  
+  // Major Seas
+  { name: 'Mediterranean Sea', type: 'sea', lat: 35, lng: 18 },
+  { name: 'Caribbean Sea', type: 'sea', lat: 15, lng: -75 },
+  { name: 'South China Sea', type: 'sea', lat: 12, lng: 113 },
+  { name: 'Bering Sea', type: 'sea', lat: 58, lng: 175 },
+  { name: 'Arabian Sea', type: 'sea', lat: 15, lng: 65 },
+  { name: 'Gulf of Mexico', type: 'sea', lat: 25, lng: -90 },
+];
+
+export const MOCK_CUSTOMERS: Customer[] = [
+  { id: '1', name: 'TechFlow Inc.', location: { lat: 37.7749, lng: -122.4194 }, revenue: '$120k', status: 'active', plan: 'enterprise', avatarUrl: 'https://i.pravatar.cc/150?u=1' }, // SF
+  { id: '2', name: 'Nordic Design', location: { lat: 59.3293, lng: 18.0686 }, revenue: '$45k', status: 'active', plan: 'pro', avatarUrl: 'https://i.pravatar.cc/150?u=2' }, // Stockholm
+  { id: '3', name: 'Sakura Systems', location: { lat: 35.6762, lng: 139.6503 }, revenue: '$850k', status: 'active', plan: 'enterprise', avatarUrl: 'https://i.pravatar.cc/150?u=3' }, // Tokyo
+  { id: '4', name: 'Aussie Cloud', location: { lat: -33.8688, lng: 151.2093 }, revenue: '$12k', status: 'new', plan: 'basic', avatarUrl: 'https://i.pravatar.cc/150?u=4' }, // Sydney
+  { id: '5', name: 'Samba Soft', location: { lat: -23.5505, lng: -46.6333 }, revenue: '$30k', status: 'churned', plan: 'pro', avatarUrl: 'https://i.pravatar.cc/150?u=5' }, // Sao Paulo
+  { id: '6', name: 'London Finance', location: { lat: 51.5074, lng: -0.1278 }, revenue: '$2.1M', status: 'active', plan: 'enterprise', avatarUrl: 'https://i.pravatar.cc/150?u=6' }, // London
+  { id: '7', name: 'Cape Traders', location: { lat: -33.9249, lng: 18.4241 }, revenue: '$8k', status: 'new', plan: 'basic', avatarUrl: 'https://i.pravatar.cc/150?u=7' }, // Cape Town
+  { id: '8', name: 'Mumbai Retail', location: { lat: 19.0760, lng: 72.8777 }, revenue: '$150k', status: 'active', plan: 'pro', avatarUrl: 'https://i.pravatar.cc/150?u=8' }, // Mumbai
+  { id: '9', name: 'Berlin Auto', location: { lat: 52.5200, lng: 13.4050 }, revenue: '$500k', status: 'active', plan: 'enterprise', avatarUrl: 'https://i.pravatar.cc/150?u=9' }, // Berlin
+  { id: '10', name: 'Cairo Logistics', location: { lat: 30.0444, lng: 31.2357 }, revenue: '$22k', status: 'active', plan: 'basic', avatarUrl: 'https://i.pravatar.cc/150?u=10' }, // Cairo
+];
