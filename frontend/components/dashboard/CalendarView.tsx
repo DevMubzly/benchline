@@ -45,7 +45,7 @@ export default function CalendarView({ scheduledPosts }: CalendarViewProps) {
       <div className='flex items-center justify-between mb-8'>
         <div>
           <h1 className='text-2xl font-bold'>Content Calendar</h1>
-          <p className='text-gray-500 text-sm mt-1'>Schedule and track your content across projects</p>
+          <p className='text-muted-foreground text-sm mt-1'>Schedule and track your content across projects</p>
         </div>
         <div className='flex items-center gap-4'>
           <div className='flex items-center gap-2'>
@@ -61,25 +61,25 @@ export default function CalendarView({ scheduledPosts }: CalendarViewProps) {
         </div>
       </div>
 
-      <div className='border border-black p-6'>
+      <div className='border border-border p-6'>
         <div className='flex items-center justify-between mb-6'>
-          <button onClick={prevMonth} className='p-1 hover:bg-gray-100'>
+          <button onClick={prevMonth} className='p-1 hover:bg-accent'>
             <ChevronLeft size={20} />
           </button>
           <h2 className='text-lg font-bold'>{months[currentMonth]} {currentYear}</h2>
-          <button onClick={nextMonth} className='p-1 hover:bg-gray-100'>
+          <button onClick={nextMonth} className='p-1 hover:bg-accent'>
             <ChevronRight size={20} />
           </button>
         </div>
 
-        <div className='grid grid-cols-7 gap-px bg-gray-200'>
+        <div className='grid grid-cols-7 gap-px bg-border'>
           {daysOfWeek.map(d => (
-            <div key={d} className='bg-gray-50 p-2 text-center text-xs font-medium text-gray-500'>
+            <div key={d} className='bg-muted p-2 text-center text-xs font-medium text-muted-foreground'>
               {d}
             </div>
           ))}
           {Array.from({ length: firstDay }).map((_, i) => (
-            <div key={`empty-${i}`} className='bg-white p-2 min-h-[100px]' />
+            <div key={`empty-${i}`} className='bg-card p-2 min-h-[100px]' />
           ))}
           {Array.from({ length: daysInMonth }).map((_, i) => {
             const day = i + 1
@@ -89,11 +89,11 @@ export default function CalendarView({ scheduledPosts }: CalendarViewProps) {
             return (
               <div
                 key={day}
-                className={`bg-white p-2 min-h-[100px] border border-gray-100 ${
-                  isToday ? 'ring-2 ring-black ring-inset' : ''
+                className={`bg-card p-2 min-h-[100px] border border-border ${
+                  isToday ? 'ring-2 ring-foreground ring-inset' : ''
                 }`}
               >
-                <div className={`text-sm font-medium mb-1 ${isToday ? 'text-black' : 'text-gray-400'}`}>
+                <div className={`text-sm font-medium mb-1 ${isToday ? 'text-foreground' : 'text-muted-foreground'}`}>
                   {day}
                 </div>
                 <div className='space-y-1'>
@@ -111,7 +111,7 @@ export default function CalendarView({ scheduledPosts }: CalendarViewProps) {
                     </div>
                   ))}
                   {posts.length > 3 && (
-                    <div className='text-[10px] text-gray-400 px-1'>+{posts.length - 3} more</div>
+                    <div className='text-[10px] text-muted-foreground px-1'>+{posts.length - 3} more</div>
                   )}
                 </div>
               </div>
@@ -121,20 +121,20 @@ export default function CalendarView({ scheduledPosts }: CalendarViewProps) {
       </div>
 
       <div className='mt-8'>
-        <h2 className='font-bold text-lg mb-4 border-b border-black pb-2'>All Scheduled Content</h2>
+        <h2 className='font-bold text-lg mb-4 border-b border-border pb-2'>All Scheduled Content</h2>
         <div className='space-y-2'>
           {scheduledPosts.filter(p => p.status === 'scheduled').map((post) => (
-            <div key={post.id} className='border border-gray-200 p-3 flex items-center justify-between'>
+            <div key={post.id} className='border border-border p-3 flex items-center justify-between'>
               <div>
                 <div className='flex items-center gap-2'>
                   <span className='text-xs bg-blue-100 text-blue-700 px-2 py-0.5'>{post.channel}</span>
                   <span className='text-sm font-medium'>{post.title}</span>
                 </div>
                 {post.projects?.name && (
-                  <p className='text-xs text-gray-400 mt-1'>{post.projects.name}</p>
+                  <p className='text-xs text-muted-foreground mt-1'>{post.projects.name}</p>
                 )}
               </div>
-              <div className='text-xs text-gray-500 flex items-center gap-1'>
+              <div className='text-xs text-muted-foreground flex items-center gap-1'>
                 <CalendarDays size={12} />
                 {post.scheduled_at ? formatDate(post.scheduled_at) : 'No date'}
               </div>

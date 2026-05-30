@@ -18,14 +18,14 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className='max-w-2xl'>
+    <div className='max-w-2xl mx-auto'>
       <div className='mb-8'>
         <h1 className='text-2xl font-bold'>Settings</h1>
-        <p className='text-gray-500 text-sm mt-1'>Configure your integrations and API keys</p>
+        <p className='text-muted-foreground text-sm mt-1'>Configure your integrations and API keys</p>
       </div>
 
       <div className='space-y-8'>
-        <div className='border border-black p-6'>
+        <div className='border border-border p-6'>
           <h2 className='font-bold mb-4 flex items-center gap-2'>
             <User size={16} />
             Account
@@ -37,8 +37,8 @@ export default function SettingsPage() {
             </Avatar>
             <div>
               <p className='font-medium'>{profile?.full_name || user?.user_metadata?.full_name || user?.email}</p>
-              <p className='text-sm text-gray-500'>@{profile?.username || user?.user_metadata?.user_name}</p>
-              {profile?.bio && <p className='text-xs text-gray-400 mt-1'>{profile.bio}</p>}
+              <p className='text-sm text-muted-foreground'>@{profile?.username || user?.user_metadata?.user_name}</p>
+              {profile?.bio && <p className='text-xs text-muted-foreground mt-1'>{profile.bio}</p>}
             </div>
           </div>
           <button
@@ -50,7 +50,7 @@ export default function SettingsPage() {
           </button>
         </div>
 
-        <div className='border border-black p-6'>
+        <div className='border border-border p-6'>
           <h2 className='font-bold mb-4 flex items-center gap-2'>
             <Github size={16} />
             GitHub
@@ -60,12 +60,12 @@ export default function SettingsPage() {
           </p>
         </div>
 
-        <div className='border border-black p-6'>
+        <div className='border border-border p-6'>
           <h2 className='font-bold mb-4 flex items-center gap-2'>
             <Key size={16} />
             AI Provider
           </h2>
-          <p className='text-sm text-gray-500 mb-4'>
+          <p className='text-sm text-muted-foreground mb-4'>
             API key for content generation. Supports OpenAI or any LangChain-compatible provider.
           </p>
           <div>
@@ -75,14 +75,14 @@ export default function SettingsPage() {
               value={openaiKey}
               onChange={e => setOpenaiKey(e.target.value)}
               placeholder='sk-...'
-              className='w-full border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:border-black'
+              className='w-full border border-input px-3 py-2 text-sm focus:outline-none focus:border-foreground'
             />
           </div>
         </div>
 
         <button
           onClick={handleSave}
-          className='bg-black text-white px-6 py-2 text-sm hover:bg-gray-800 transition-colors'
+          className='bg-primary text-primary-foreground px-6 py-2 text-sm hover:bg-primary/90 transition-colors'
         >
           {saved ? 'Saved!' : 'Save Settings'}
         </button>

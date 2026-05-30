@@ -28,7 +28,7 @@ export default function ContentList({ contentPieces: initial }: ContentListProps
       <div className='flex items-center justify-between mb-8'>
         <div>
           <h1 className='text-2xl font-bold'>Content</h1>
-          <p className='text-gray-500 text-sm mt-1'>All generated content across your projects</p>
+          <p className='text-muted-foreground text-sm mt-1'>All generated content across your projects</p>
         </div>
         <div className='flex gap-2'>
           {['all', 'draft', 'scheduled', 'published'].map(s => (
@@ -36,7 +36,7 @@ export default function ContentList({ contentPieces: initial }: ContentListProps
               key={s}
               onClick={() => setFilter(s)}
               className={`text-xs px-3 py-1.5 border transition-colors ${
-                filter === s ? 'bg-black text-white border-black' : 'border-gray-300 hover:border-gray-500'
+                filter === s ? 'bg-primary text-primary-foreground border-primary' : 'border-input hover:border-muted-foreground'
               }`}
             >
               {s.charAt(0).toUpperCase() + s.slice(1)}
@@ -46,41 +46,41 @@ export default function ContentList({ contentPieces: initial }: ContentListProps
       </div>
 
       {pieces.length === 0 ? (
-        <div className='border-2 border-dashed border-gray-300 p-12 text-center'>
-          <FileText size={40} className='mx-auto mb-4 text-gray-300' />
+        <div className='border-2 border-dashed border-border p-12 text-center'>
+          <FileText size={40} className='mx-auto mb-4 text-muted-foreground/30' />
           <h3 className='text-lg font-medium mb-2'>No content yet</h3>
-          <p className='text-gray-500 text-sm'>Generate content from your project pages</p>
+          <p className='text-muted-foreground text-sm'>Generate content from your project pages</p>
         </div>
       ) : filtered.length === 0 ? (
-        <div className='border-2 border-dashed border-gray-300 p-12 text-center'>
-          <p className='text-gray-500 text-sm'>No content with status &quot;{filter}&quot;</p>
+        <div className='border-2 border-dashed border-border p-12 text-center'>
+          <p className='text-muted-foreground text-sm'>No content with status &quot;{filter}&quot;</p>
         </div>
       ) : (
         <div className='space-y-2'>
           {filtered.map((piece) => (
-            <div key={piece.id} className='border border-gray-200 p-4 flex items-start justify-between gap-4'>
+            <div key={piece.id} className='border border-border p-4 flex items-start justify-between gap-4'>
               <div className='flex-1'>
                 <div className='flex items-center gap-2 mb-1'>
                   <span className={`text-xs px-2 py-0.5 ${
                     piece.status === 'published' ? 'bg-green-100 text-green-700' :
                     piece.status === 'scheduled' ? 'bg-blue-100 text-blue-700' :
-                    'bg-gray-100 text-gray-700'
+                    'bg-muted text-foreground'
                   }`}>{piece.status}</span>
-                  <span className='text-xs bg-gray-100 px-2 py-0.5 uppercase'>{piece.channel}</span>
+                  <span className='text-xs bg-muted px-2 py-0.5 uppercase'>{piece.channel}</span>
                   {piece.projects?.name && (
-                    <span className='text-xs text-gray-400'>{piece.projects.name}</span>
+                    <span className='text-xs text-muted-foreground'>{piece.projects.name}</span>
                   )}
                 </div>
                 <p className='font-medium'>{piece.title}</p>
-                <p className='text-xs text-gray-500 mt-1 line-clamp-2'>{piece.body}</p>
+                <p className='text-xs text-muted-foreground mt-1 line-clamp-2'>{piece.body}</p>
                 <div className='flex items-center gap-3 mt-2'>
                   {piece.scheduled_at && (
-                    <span className='text-xs text-gray-400 flex items-center gap-1'>
+                    <span className='text-xs text-muted-foreground flex items-center gap-1'>
                       <CalendarDays size={12} />
                       {formatDate(piece.scheduled_at)}
                     </span>
                   )}
-                  <span className='text-xs text-gray-400'>{formatDate(piece.created_at)}</span>
+                  <span className='text-xs text-muted-foreground'>{formatDate(piece.created_at)}</span>
                 </div>
               </div>
               <div className='flex items-center gap-2'>
@@ -100,7 +100,7 @@ export default function ContentList({ contentPieces: initial }: ContentListProps
                     Publish
                   </button>
                 )}
-                <button onClick={() => deletePiece(piece.id)} className='text-gray-400 hover:text-red-500'>
+                <button onClick={() => deletePiece(piece.id)} className='text-muted-foreground hover:text-red-500'>
                   <X size={14} />
                 </button>
               </div>

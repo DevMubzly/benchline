@@ -66,7 +66,7 @@ export default function ContentGenerator({ projectId, projectName }: ContentGene
   }
 
   return (
-    <div className='border border-black p-5'>
+    <div className='border border-border p-5'>
       <h3 className='font-bold mb-4 flex items-center gap-2'>
         <Sparkles size={16} />
         Generate Content
@@ -79,7 +79,7 @@ export default function ContentGenerator({ projectId, projectName }: ContentGene
             value={topic}
             onChange={e => setTopic(e.target.value)}
             placeholder='e.g., just shipped a new auth system, or leave blank for suggestion...'
-            className='w-full border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:border-black'
+            className='w-full border border-input px-3 py-2 text-sm focus:outline-none focus:border-foreground'
           />
         </div>
         <div className='grid grid-cols-6 gap-2'>
@@ -88,7 +88,7 @@ export default function ContentGenerator({ projectId, projectName }: ContentGene
               key={ch.id}
               onClick={() => setChannel(ch.id)}
               className={`text-xs px-3 py-2 border transition-colors ${
-                channel === ch.id ? 'bg-black text-white border-black' : 'border-gray-300 hover:border-gray-500'
+                channel === ch.id ? 'bg-primary text-primary-foreground border-primary' : 'border-input hover:border-muted-foreground'
               }`}
             >
               {ch.label}
@@ -97,11 +97,11 @@ export default function ContentGenerator({ projectId, projectName }: ContentGene
         </div>
         <div className='flex items-center gap-4'>
           <div>
-            <label className='text-xs text-gray-500 block mb-1'>Tone</label>
+            <label className='text-xs text-muted-foreground block mb-1'>Tone</label>
             <select
               value={tone}
               onChange={e => setTone(e.target.value)}
-              className='border border-gray-300 px-3 py-2 text-sm focus:outline-none'
+              className='border border-input px-3 py-2 text-sm focus:outline-none'
             >
               <option value='casual'>Casual</option>
               <option value='professional'>Professional</option>
@@ -113,7 +113,7 @@ export default function ContentGenerator({ projectId, projectName }: ContentGene
           <button
             onClick={handleGenerate}
             disabled={generating}
-            className='bg-black text-white px-6 py-2 text-sm hover:bg-gray-800 transition-colors disabled:opacity-50 flex items-center gap-2'
+            className='bg-primary text-primary-foreground px-6 py-2 text-sm hover:bg-primary/90 transition-colors disabled:opacity-50 flex items-center gap-2'
           >
             <Sparkles size={14} />
             {generating ? 'Generating...' : 'Generate'}
@@ -121,18 +121,18 @@ export default function ContentGenerator({ projectId, projectName }: ContentGene
         </div>
 
         {result && (
-          <div className='border border-gray-200 p-4'>
+          <div className='border border-border p-4'>
             <div className='text-sm whitespace-pre-wrap mb-3'>{result}</div>
             <div className='flex items-center gap-3'>
               <button
                 onClick={handleSave}
-                className='bg-black text-white px-4 py-1.5 text-xs hover:bg-gray-800'
+                className='bg-primary text-primary-foreground px-4 py-1.5 text-xs hover:bg-primary/90'
               >
                 Save as Draft
               </button>
               <button
                 onClick={() => setResult('')}
-                className='text-xs text-gray-400 hover:text-black'
+                className='text-xs text-muted-foreground hover:text-foreground'
               >
                 Discard
               </button>
@@ -145,13 +145,13 @@ export default function ContentGenerator({ projectId, projectName }: ContentGene
             <h4 className='font-bold text-sm mb-2'>Generated in this session:</h4>
             <div className='space-y-2'>
               {contentList.map((piece) => (
-                <div key={piece.id} className='border border-gray-200 p-3 text-sm'>
+                <div key={piece.id} className='border border-border p-3 text-sm'>
                   <div className='flex items-center gap-2 mb-1'>
-                    <span className='text-xs bg-gray-100 px-1.5 py-0.5 uppercase'>{piece.channel}</span>
+                    <span className='text-xs bg-muted px-1.5 py-0.5 uppercase'>{piece.channel}</span>
                     <span className='text-xs bg-yellow-100 text-yellow-700 px-1.5 py-0.5 uppercase'>draft</span>
                   </div>
                   <p className='font-medium'>{piece.title}</p>
-                  <p className='text-xs text-gray-500 mt-1 line-clamp-2'>{piece.body}</p>
+                  <p className='text-xs text-muted-foreground mt-1 line-clamp-2'>{piece.body}</p>
                 </div>
               ))}
             </div>

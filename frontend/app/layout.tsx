@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Manrope } from 'next/font/google';
 import { AuthProvider } from '@/lib/auth-context'
+import { ThemeProvider } from 'next-themes'
 
 const manrope = Manrope({
   subsets: ['latin'],
@@ -14,11 +15,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={manrope.variable}>
+    <html lang="en" className={manrope.variable} suppressHydrationWarning>
       <body className="font-sans">
-        <AuthProvider>
-          {children}
-        </AuthProvider>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+          <AuthProvider>
+            {children}
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -72,9 +72,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [supabase])
 
   const logout = useCallback(async () => {
-    await supabase.auth.signOut()
+    await supabase.auth.signOut({ scope: 'local' })
     setUser(null)
     setProfile(null)
+    window.location.href = '/auth/login'
   }, [supabase])
 
   return (
