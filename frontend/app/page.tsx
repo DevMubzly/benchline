@@ -1,12 +1,5 @@
-import DashboardOverview from '@/components/dashboard/DashboardOverview'
-import { MOCK_PROJECTS, MOCK_CONTENT, MOCK_EVENTS } from '@/lib/mock'
+import { redirect } from 'next/navigation'
 
-export default function HomePage() {
-  return (
-    <DashboardOverview
-      projects={MOCK_PROJECTS}
-      contentPieces={MOCK_CONTENT}
-      recentEvents={MOCK_EVENTS}
-    />
-  )
+export default function RootPage() {
+  redirect('/dashboard')
 }

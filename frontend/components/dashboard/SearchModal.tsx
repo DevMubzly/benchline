@@ -82,7 +82,7 @@ export default function SearchModal({ onClose }: SearchModalProps) {
                 {matchedProjects.map(p => (
                   <Link
                     key={p.id}
-                    href={`/projects/${p.id}`}
+                    href={`/dashboard/projects/${p.id}`}
                     onClick={onClose}
                     className='flex items-center gap-3 px-2 py-2 hover:bg-gray-50 text-sm'
                   >
@@ -102,7 +102,7 @@ export default function SearchModal({ onClose }: SearchModalProps) {
                 {matchedContent.map(c => (
                   <Link
                     key={c.id}
-                    href={`/projects/${c.project_id}`}
+                    href={`/dashboard/projects/${c.project_id}`}
                     onClick={onClose}
                     className='flex items-center gap-3 px-2 py-2 hover:bg-gray-50 text-sm'
                   >

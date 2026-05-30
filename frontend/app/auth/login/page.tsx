@@ -10,7 +10,7 @@ export default function LoginPage() {
   const router = useRouter()
 
   useEffect(() => {
-    if (!loading && user) router.push('/')
+    if (!loading && user) router.push('/dashboard')
   }, [user, loading, router])
 
   if (loading) return null
@@ -30,8 +30,6 @@ export default function LoginPage() {
           Sign in with GitHub
         </button>
         <p className='text-xs text-gray-400 text-center mt-4'>
-          Your code is never stored on our servers.
-          <br />
           Only your public GitHub profile is accessed.
         </p>
       </div>

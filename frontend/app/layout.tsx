@@ -1,7 +1,6 @@
 import "./globals.css";
 import { Manrope } from 'next/font/google';
-import NavigationBar from '@/components/dashboard/NavigationBar';
-import { AuthWrapper } from '@/components/AuthWrapper';
+import { AuthProvider } from '@/lib/auth-context'
 
 const manrope = Manrope({
   subsets: ['latin'],
@@ -17,12 +16,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={manrope.variable}>
       <body className="font-sans">
-        <AuthWrapper>
-          <NavigationBar />
-          <main className="px-8 py-6">
-            {children}
-          </main>
-        </AuthWrapper>
+        <AuthProvider>
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );

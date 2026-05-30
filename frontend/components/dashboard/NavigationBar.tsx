@@ -9,10 +9,10 @@ import NotificationDropdown from './NotificationDropdown'
 import SearchModal from './SearchModal'
 
 const NavItems = [
-    { label: 'Dashboard', href: '/' },
-    { label: 'Projects', href: '/projects' },
-    { label: 'Content', href: '/content' },
-    { label: 'Calendar', href: '/calendar' },
+    { label: 'Dashboard', href: '/dashboard' },
+    { label: 'Projects', href: '/dashboard/projects' },
+    { label: 'Content', href: '/dashboard/content' },
+    { label: 'Calendar', href: '/dashboard/calendar' },
 ]
 
 const NavigationBar = () => {
@@ -20,13 +20,15 @@ const NavigationBar = () => {
   const [showNotifications, setShowNotifications] = useState(false)
   const [showSearch, setShowSearch] = useState(false)
   const [showUserMenu, setShowUserMenu] = useState(false)
-  const { user, logout } = useAuth()
+  const { user, profile, logout } = useAuth()
 
-  if (pathname === '/login') return null
+  if (pathname.startsWith('/auth')) return null
 
   return (
     <div className='sticky top-0 z-50 bg-background flex items-center justify-between w-full py-6 px-8 border-b border-b-black box-border'>
-        <div className='font-bold text-lg'>BENCHLINE</div>
+        <div className='font-bold text-lg'>
+          <a href='/dashboard'>BENCHLINE</a>
+        </div>
         <div>
             <nav className='flex items-center justify-center gap-12'>
                 {NavItems.map((item) => (
@@ -41,7 +43,7 @@ const NavigationBar = () => {
         </div>
         <div className='flex items-center'>
             <div className='flex items-center gap-4 mr-4'>
-                <button className='hover:bg-gray-100 cursor-pointer' onClick={() => window.location.href = '/settings'}>
+                <button className='hover:bg-gray-100 cursor-pointer' onClick={() => window.location.href = '/dashboard/settings'}>
                     <Settings size={14} />
                 </button>
                 <button className='hover:bg-gray-100 cursor-pointer' onClick={() => setShowSearch(true)}>
@@ -58,18 +60,18 @@ const NavigationBar = () => {
             <div className='relative'>
                 <button className='cursor-pointer' onClick={() => setShowUserMenu(p => !p)}>
                     <Avatar>
-                        <AvatarImage src={user?.avatar_url || 'https://github.com/shadcn.png'} />
-                        <AvatarFallback>{user?.login?.charAt(0).toUpperCase() || '?'}</AvatarFallback>
+                        <AvatarImage src={profile?.avatar_url || user?.user_metadata?.avatar_url || 'https://github.com/shadcn.png'} />
+                        <AvatarFallback>{(profile?.username || user?.user_metadata?.user_name || '?').charAt(0).toUpperCase()}</AvatarFallback>
                     </Avatar>
                 </button>
                 {showUserMenu && (
                     <div className='absolute top-full right-0 mt-2 w-56 border border-black bg-white shadow-lg z-50'>
                         <div className='px-4 py-3 border-b border-black'>
-                            <p className='text-sm font-medium'>{user?.name || user?.login}</p>
-                            <p className='text-xs text-gray-500'>@{user?.login}</p>
+                            <p className='text-sm font-medium'>{profile?.full_name || user?.user_metadata?.full_name || user?.email}</p>
+                            <p className='text-xs text-gray-500'>@{profile?.username || user?.user_metadata?.user_name}</p>
                         </div>
                         <button
-                            onClick={() => { setShowUserMenu(false); window.location.href = '/settings' }}
+                            onClick={() => { setShowUserMenu(false); window.location.href = '/dashboard/settings' }}
                             className='w-full text-left px-4 py-2 text-sm hover:bg-gray-50 flex items-center gap-2'
                         >
                             <Settings size={14} />

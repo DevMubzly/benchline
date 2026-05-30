@@ -94,7 +94,7 @@ export default function ProjectDetail({ project, events, contentPieces, suggesti
         <div>
           <div className='flex items-center justify-between mb-4'>
             <h3 className='font-bold'>Generated Content</h3>
-            <Link href={`/projects/${project.id}/content`} className='text-sm text-black underline'>Manage All</Link>
+            <Link href={`/dashboard/projects/${project.id}/content`} className='text-sm text-black underline'>Manage All</Link>
           </div>
           {contentPieces.length === 0 && <p className='text-gray-400 text-sm'>Use the generator above to create content.</p>}
           <div className='grid grid-cols-2 gap-3'>

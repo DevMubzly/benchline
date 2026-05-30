@@ -46,7 +46,7 @@ export default function ProjectsPage() {
         <div className='grid grid-cols-3 gap-4'>
           {projects.map((project) => (
             <div key={project.id} className='border border-black p-5 hover:shadow-md transition-shadow'>
-              <Link href={`/projects/${project.id}`} className='block'>
+              <Link href={`/dashboard/projects/${project.id}`} className='block'>
                 <div className='flex items-center gap-2 mb-3'>
                   <Github size={18} />
                   <h3 className='font-bold text-lg'>{project.name}</h3>
@@ -60,7 +60,7 @@ export default function ProjectsPage() {
                 )}
               </Link>
               <div className='flex items-center justify-between pt-3 border-t border-gray-100'>
-                <Link href={`/projects/${project.id}/content`} className='text-xs text-black underline'>
+                <Link href={`/dashboard/projects/${project.id}/content`} className='text-xs text-black underline'>
                   View Content
                 </Link>
                 <button
