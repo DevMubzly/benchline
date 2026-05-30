@@ -31,7 +31,7 @@ export default function NotificationDropdown({ onClose }: NotificationDropdownPr
   return (
     <div
       ref={ref}
-      className='absolute top-full right-0 mt-2 w-80 border border-black bg-white shadow-lg z-50'
+      className='absolute top-full right-0 mt-2 w-96 border border-black bg-white shadow-lg z-50'
     >
       <div className='flex items-center justify-between px-4 py-3 border-b border-black'>
         <h3 className='font-bold text-sm'>Notifications</h3>
@@ -39,7 +39,7 @@ export default function NotificationDropdown({ onClose }: NotificationDropdownPr
           <X size={14} />
         </button>
       </div>
-      <div className='max-h-72 overflow-y-auto'>
+      <div className='max-h-96 overflow-y-auto'>
         {MOCK_NOTIFICATIONS.length === 0 && (
           <p className='text-gray-400 text-xs text-center py-6'>No notifications</p>
         )}
