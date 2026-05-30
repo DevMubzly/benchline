@@ -1,11 +1,12 @@
-import React from 'react'
+import DashboardOverview from '@/components/dashboard/DashboardOverview'
+import { MOCK_PROJECTS, MOCK_CONTENT, MOCK_EVENTS } from '@/lib/mock'
 
-const RootPage = () => {
+export default function HomePage() {
   return (
-    <div>
-      Hello Page
-    </div>
+    <DashboardOverview
+      projects={MOCK_PROJECTS}
+      contentPieces={MOCK_CONTENT}
+      recentEvents={MOCK_EVENTS}
+    />
   )
 }
-
-export default RootPage

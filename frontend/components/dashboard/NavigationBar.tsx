@@ -1,41 +1,26 @@
 'use client'
 
+import { useState } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Settings, Search, Bell } from "lucide-react"
 import { usePathname } from "next/navigation"
+import NotificationDropdown from './NotificationDropdown'
+import SearchModal from './SearchModal'
 
 const NavItems = [
-    {
-        label: 'Dashboard', 
-        href: '/dashboard',
-    }, 
-    {
-        label: 'Reports',
-        href: '/dashboard/reports',
-    }, 
-    {
-        label: 'Integrations',
-        href: '/dashboard/integrations',
-    },
-    {
-        label: 'Projects',
-        href: '/dashboard/projects',
-    },
-    {
-        label: 'Team',
-        href: '/dashboard/team',
-    },
-    {
-        label: 'Vault',
-        href: '/dashboard/vault',
-    }
+    { label: 'Dashboard', href: '/' },
+    { label: 'Projects', href: '/projects' },
+    { label: 'Content', href: '/content' },
+    { label: 'Calendar', href: '/calendar' },
 ]
 
 const NavigationBar = () => {
   const pathname = usePathname()
+  const [showNotifications, setShowNotifications] = useState(false)
+  const [showSearch, setShowSearch] = useState(false)
 
   return (
-    <div className='flex items-center justify-between w-full py-6 px-4 border-b border-b-black box-border mb-2'>
+    <div className='sticky top-0 z-50 bg-background flex items-center justify-between w-full py-6 px-8 border-b border-b-black box-border'>
         <div className='font-bold text-lg'>BENCHLINE</div>
         <div>
             <nav className='flex items-center justify-center gap-12'>
@@ -51,15 +36,18 @@ const NavigationBar = () => {
         </div>
         <div className='flex items-center'>
             <div className='flex items-center gap-4 mr-4'>
-                <button className='hover:bg-gray-100 rounded-lg cursor-pointer'>
+                <button className='hover:bg-gray-100 cursor-pointer' onClick={() => window.location.href = '/settings'}>
                     <Settings size={14} />
                 </button>
-                <button className='hover:bg-gray-100 rounded-lg cursor-pointer'>
+                <button className='hover:bg-gray-100 cursor-pointer' onClick={() => setShowSearch(true)}>
                     <Search size={14} />
                 </button>
-                <button className='hover:bg-gray-100 rounded-lg cursor-pointer'>
-                    <Bell size={14} />
-                </button>
+                <div className='relative'>
+                    <button className='hover:bg-gray-100 cursor-pointer' onClick={() => setShowNotifications(p => !p)}>
+                        <Bell size={14} />
+                    </button>
+                    {showNotifications && <NotificationDropdown onClose={() => setShowNotifications(false)} />}
+                </div>
             </div>
             <div className='h-6 w-px bg-gray-300 mr-4'></div>
             <div className="cursor-pointer">
@@ -69,6 +57,7 @@ const NavigationBar = () => {
                 </Avatar>
             </div>
         </div>
+        {showSearch && <SearchModal onClose={() => setShowSearch(false)} />}
     </div>
   )
 }
