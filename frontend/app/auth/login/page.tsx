@@ -16,7 +16,7 @@ export default function LoginPage() {
   if (loading) return null
 
   return (
-    <div className='light min-h-screen flex items-center justify-center'>
+    <div className='light bg-background min-h-screen flex items-center justify-center'>
       <div className='w-full max-w-sm border border-border p-8'>
         <div className='text-center mb-6'>
           <h1 className='text-2xl font-bold mb-1'>BENCHLINE</h1>
