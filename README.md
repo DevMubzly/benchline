@@ -7,7 +7,7 @@
 
 **Your personal distribution OS.** Turn code into audience.
 
-Benchline is a single-user content engine for founders who build in public. It connects to your GitHub repos, watches your shipping activity, and helps you generate platform-native content across every channel — so you never ship something without talking about it.
+Benchline is a single-user content engine for founders who build in public. It connects to your GitHub repos, watches your shipping activity, and helps you generate platform-native content across every channel, so you never ship something without talking about it.
 
 ## Why
 
@@ -58,7 +58,7 @@ The app runs on [http://localhost:4000](http://localhost:4000).
 
 ## MVP Status
 
-The current build runs entirely on mock data (`frontend/lib/mock.ts`). No authentication, no live API calls. This lets us validate the workflow before wiring up real services.
+The current build runs entirely on mock data (`frontend/lib/mock.ts`). Github authentication, no live API calls. This lets us validate the workflow before wiring up real services.
 
 **Planned integrations:**
 - GitHub OAuth / PAT-based repo sync
