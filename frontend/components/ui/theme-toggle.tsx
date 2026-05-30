@@ -19,10 +19,10 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-      className='cursor-pointer hover:bg-accent transition-colors p-1'
+      className='flex items-center justify-center w-7 h-7 cursor-pointer hover:bg-accent transition-colors'
       aria-label='Toggle theme'
     >
-      {hydrated ? (theme === 'dark' ? <Sun size={14} /> : <Moon size={14} />) : <div className='w-4 h-4' />}
+      {hydrated ? (theme === 'dark' ? <Sun size={14} /> : <Moon size={14} />) : <div className='w-3.5 h-3.5' />}
     </button>
   )
 }

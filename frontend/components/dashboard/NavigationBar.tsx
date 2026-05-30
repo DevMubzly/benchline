@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Settings, Search, Bell, LogOut } from "lucide-react"
 import ThemeToggle from "@/components/ui/theme-toggle"
@@ -21,7 +21,17 @@ const NavigationBar = () => {
   const [showNotifications, setShowNotifications] = useState(false)
   const [showSearch, setShowSearch] = useState(false)
   const [showUserMenu, setShowUserMenu] = useState(false)
+  const userMenuRef = useRef<HTMLDivElement>(null)
   const { user, profile, logout } = useAuth()
+
+  useEffect(() => {
+    if (!showUserMenu) return
+    const handleClick = (e: MouseEvent) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(e.target as Node)) setShowUserMenu(false)
+    }
+    document.addEventListener('mousedown', handleClick)
+    return () => document.removeEventListener('mousedown', handleClick)
+  }, [showUserMenu])
 
   if (pathname.startsWith('/auth')) return null
 
@@ -43,15 +53,15 @@ const NavigationBar = () => {
             </nav>
         </div>
         <div className='flex items-center'>
-            <div className='flex items-center gap-4 mr-4'>
-                <button className='hover:bg-accent cursor-pointer' onClick={() => window.location.href = '/dashboard/settings'}>
+            <div className='flex items-center gap-1 mr-4'>
+                <button className='flex items-center justify-center w-7 h-7 hover:bg-accent cursor-pointer' onClick={() => window.location.href = '/dashboard/settings'}>
                     <Settings size={14} />
                 </button>
-                <button className='hover:bg-accent cursor-pointer' onClick={() => setShowSearch(true)}>
+                <button className='flex items-center justify-center w-7 h-7 hover:bg-accent cursor-pointer' onClick={() => setShowSearch(true)}>
                     <Search size={14} />
                 </button>
-                <div className='relative'>
-                    <button className='hover:bg-accent cursor-pointer' onClick={() => setShowNotifications(p => !p)}>
+                <div className='relative flex items-center justify-center w-7 h-7'>
+                    <button className='flex items-center justify-center w-full h-full hover:bg-accent cursor-pointer' onClick={() => setShowNotifications(p => !p)}>
                         <Bell size={14} />
                     </button>
                     {showNotifications && <NotificationDropdown onClose={() => setShowNotifications(false)} />}
@@ -59,7 +69,7 @@ const NavigationBar = () => {
                 <ThemeToggle />
             </div>
             <div className='h-6 w-px bg-gray-300 dark:bg-gray-600 mr-4'></div>
-            <div className='relative'>
+            <div className='relative flex items-center' ref={userMenuRef}>
                 <button className='cursor-pointer' onClick={() => setShowUserMenu(p => !p)}>
                     <Avatar>
                         <AvatarImage src={profile?.avatar_url || user?.user_metadata?.avatar_url || 'https://github.com/shadcn.png'} />
