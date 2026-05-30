@@ -22,6 +22,7 @@ const NavigationBar = () => {
   const [showSearch, setShowSearch] = useState(false)
   const [showUserMenu, setShowUserMenu] = useState(false)
   const userMenuRef = useRef<HTMLDivElement>(null)
+  const [signingOut, setSigningOut] = useState(false)
   const { user, profile, logout } = useAuth()
 
   useEffect(() => {
@@ -90,10 +91,11 @@ const NavigationBar = () => {
                             Settings
                         </button>
                         <button
-                            onClick={() => { setShowUserMenu(false); logout() }}
-                            className='w-full text-left px-4 py-2 text-sm hover:bg-accent flex items-center gap-2 border-t border-border text-red-500'
+                            onClick={async () => { setShowUserMenu(false); setSigningOut(true); await logout() }}
+                            disabled={signingOut}
+                            className='w-full text-left px-4 py-2 text-sm hover:bg-accent flex items-center gap-2 border-t border-border text-red-500 disabled:opacity-50'
                         >
-                            <LogOut size={14} />
+                            {signingOut ? <span className='w-3.5 h-3.5 border border-red-500 border-t-transparent rounded-full animate-spin' /> : <LogOut size={14} />}
                             Sign out
                         </button>
                     </div>

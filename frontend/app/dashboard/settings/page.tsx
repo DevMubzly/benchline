@@ -7,6 +7,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
 export default function SettingsPage() {
   const { user, profile, logout } = useAuth()
+  const [signingOut, setSigningOut] = useState(false)
   const [openaiKey, setOpenaiKey] = useState('')
   const [saved, setSaved] = useState(false)
 
@@ -42,10 +43,11 @@ export default function SettingsPage() {
             </div>
           </div>
           <button
-            onClick={logout}
-            className='mt-4 flex items-center gap-2 text-sm text-red-500 hover:text-red-700 transition-colors'
+            onClick={async () => { setSigningOut(true); await logout() }}
+            disabled={signingOut}
+            className='mt-4 flex items-center gap-2 text-sm text-red-500 hover:text-red-700 transition-colors disabled:opacity-50'
           >
-            <LogOut size={14} />
+            {signingOut ? <span className='w-3.5 h-3.5 border border-red-500 border-t-transparent rounded-full animate-spin' /> : <LogOut size={14} />}
             Sign out
           </button>
         </div>
