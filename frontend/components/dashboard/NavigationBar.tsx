@@ -2,10 +2,11 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Settings, Search, Bell, LogOut } from "lucide-react"
+import { Settings, Search, Bell, LogOut, ChevronDown } from "lucide-react"
 import ThemeToggle from "@/components/ui/theme-toggle"
 import { usePathname } from "next/navigation"
 import { useAuth } from '@/lib/auth-context'
+import { useProject } from '@/lib/project-context'
 import NotificationDropdown from './NotificationDropdown'
 import SearchModal from './SearchModal'
 
@@ -21,25 +22,60 @@ const NavigationBar = () => {
   const [showNotifications, setShowNotifications] = useState(false)
   const [showSearch, setShowSearch] = useState(false)
   const [showUserMenu, setShowUserMenu] = useState(false)
+  const [showProjectMenu, setShowProjectMenu] = useState(false)
   const userMenuRef = useRef<HTMLDivElement>(null)
+  const projectMenuRef = useRef<HTMLDivElement>(null)
   const [signingOut, setSigningOut] = useState(false)
   const { user, profile, logout } = useAuth()
+  const { selectedProjectId, setSelectedProjectId, projects, selectedProject } = useProject()
 
   useEffect(() => {
-    if (!showUserMenu) return
+    if (!showUserMenu && !showProjectMenu) return
     const handleClick = (e: MouseEvent) => {
       if (userMenuRef.current && !userMenuRef.current.contains(e.target as Node)) setShowUserMenu(false)
+      if (projectMenuRef.current && !projectMenuRef.current.contains(e.target as Node)) setShowProjectMenu(false)
     }
     document.addEventListener('mousedown', handleClick)
     return () => document.removeEventListener('mousedown', handleClick)
-  }, [showUserMenu])
+  }, [showUserMenu, showProjectMenu])
 
   if (pathname.startsWith('/auth')) return null
 
   return (
     <div className='sticky top-0 z-50 bg-background flex items-center justify-between w-full py-6 px-8 border-b border-border box-border'>
-        <div className='font-bold text-lg'>
-          <a href='/dashboard'>BENCHLINE</a>
+        <div className='flex items-center gap-3'>
+            <div className='font-bold text-lg'>
+                <a href='/dashboard'>BENCHLINE</a>
+            </div>
+            <div className='relative' ref={projectMenuRef}>
+                <button
+                    onClick={() => setShowProjectMenu(p => !p)}
+                    className='flex items-center gap-1.5 text-xs border border-border px-2.5 py-1 hover:bg-accent transition-colors'
+                >
+                    {selectedProject ? selectedProject.name : 'All Projects'}
+                    <ChevronDown size={12} />
+                </button>
+                {showProjectMenu && (
+                    <div className='absolute top-full left-0 mt-2 w-48 border border-border bg-card shadow-lg z-50'>
+                        <button
+                            onClick={() => { setSelectedProjectId(null); setShowProjectMenu(false) }}
+                            className={`w-full text-left px-3 py-2 text-sm hover:bg-accent ${!selectedProjectId ? 'font-bold bg-accent/50' : ''}`}
+                        >
+                            All Projects
+                        </button>
+                        <div className='border-t border-border' />
+                        {projects.map(p => (
+                            <button
+                                key={p.id}
+                                onClick={() => { setSelectedProjectId(p.id); setShowProjectMenu(false) }}
+                                className={`w-full text-left px-3 py-2 text-sm hover:bg-accent ${selectedProjectId === p.id ? 'font-bold bg-accent/50' : ''}`}
+                            >
+                                {p.name}
+                            </button>
+                        ))}
+                    </div>
+                )}
+            </div>
         </div>
         <div>
             <nav className='flex items-center justify-center gap-12'>
